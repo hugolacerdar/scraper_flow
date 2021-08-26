@@ -4,11 +4,9 @@ defmodule Scraper.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      {Registry, keys: :unique, name: OnlinePageProducerConsumerRegistry},
       PageProducer,
-      online_page_producer_consumer_spec(id: 1),
-      online_page_producer_consumer_spec(id: 2),
-      PageConsumerSupervisor
+      PageConsumerSupervisor,
+      OnlinePageProducerConsumer
     ]
 
     opts = [strategy: :one_for_one, name: Scraper.Supervisor]
